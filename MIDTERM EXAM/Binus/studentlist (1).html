@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Student List</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #eef6ff; padding: 2rem; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+    th { background-color: #007BFF; color: white; }
+    a.btn { text-decoration: none; padding: 5px 10px; border-radius: 4px; font-size: 14px; }
+    .add-btn { background-color: #28a745; color: white; }
+    .delete-btn { background-color: #dc3545; color: white; }
+    .delete-btn:hover { background-color: #b02a37; }
+  </style>
+</head>
+<body>
+  <h1>All Students</h1>
+
+  <p><a href="{% url 'add_student' %}" class="btn add-btn">+ Add New Student</a></p>
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Roll</th>
+      <th>Department</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+    {% for student in students %}
+    <tr>
+      <td>{{ student.name }}</td>
+      <td>{{ student.roll }}</td>
+      <td>{{ student.department }}</td>
+      <td>{{ student.email }}</td>
+      <td>
+        <a href="{% url 'delete_student' student.id %}" class="btn delete-btn"
+           onclick="return confirm('Are you sure you want to delete {{ student.name }}?');">
+          Delete
+        </a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No students found.</td></tr>
+    {% endfor %}
+  </table>
+</body>
+</html>
